@@ -22,7 +22,7 @@ public class GalleryViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 if (textViewGallery.getText().toString().trim().equals(textViewGallery.getText().toString())) {
-                    Toast.makeText(itemView.getContext(), textViewGallery.getText().toString(), LENGTH_SHORT).show();
+                    Toast.makeText(itemView.getContext(),textViewGallery.getText().toString(), LENGTH_SHORT).show();
                 }
             }
         });
@@ -31,4 +31,5 @@ public class GalleryViewHolder extends RecyclerView.ViewHolder {
     public void setTextViewGallery(String s) {
         textViewGallery.setText(s);
     }
+
 }
