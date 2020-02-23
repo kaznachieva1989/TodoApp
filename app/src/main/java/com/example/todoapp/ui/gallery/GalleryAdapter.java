@@ -46,8 +46,4 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryViewHolder> {
         return names.size();
     }
 
-    public void addText(String s) {
-        names.add(s);
-        notifyDataSetChanged();
-    }
 }

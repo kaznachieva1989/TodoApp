@@ -26,12 +26,10 @@ import com.google.android.material.tabs.TabLayout;
  */
 public class BoardFragment extends Fragment {
     TextView skip;
-    TabLayout tabIndicator;
     Button btnGetStarted;
     public ViewPager viewPager;
 
     public BoardFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -47,10 +45,10 @@ public class BoardFragment extends Fragment {
         TextView textTitle = view.findViewById(R.id.textTitle);
         ImageView imageView = view.findViewById(R.id.imageView);
 
-        final int pos = getArguments().getInt("pos");
 
         viewPager = view.findViewById(R.id.viewPager);
 
+        final int pos = getArguments().getInt("pos");
         switch (pos) {
             case 0:
                 textTitle.setText("Привет");
@@ -82,23 +80,6 @@ public class BoardFragment extends Fragment {
                 Prefs.getInstance(getContext()).saveShown();
                 startActivity(new Intent(getContext(), MainActivity.class));
                 getActivity().finish();
-            }
-        });
-        tabIndicator = view.findViewById(R.id.tab_indicator);
-        tabIndicator.setupWithViewPager(viewPager);
-        tabIndicator.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
     }
