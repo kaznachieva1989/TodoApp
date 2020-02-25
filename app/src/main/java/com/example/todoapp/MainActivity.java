@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+import android.Manifest;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import com.example.todoapp.ui.onboard.OnBoardActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -28,7 +30,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 
+import java.io.File;
+import java.io.IOException;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
 public class MainActivity extends AppCompatActivity {
+    private final int RC_WRITE_EXTERNAL = 101;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -65,6 +74,30 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        initFile();
+    }
+    @AfterPermissionGranted(RC_WRITE_EXTERNAL)
+    private void initFile(){
+        String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+        if(EasyPermissions.hasPermissions(this, permission)) {
+            File folder = new File(Environment.getExternalStorageDirectory(), "TodoApp");
+            folder.mkdirs();
+            File file = new File(folder, "note.txt");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            EasyPermissions.requestPermissions(this, "Разреши", RC_WRITE_EXTERNAL, permission);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode,permissions, grantResults, this);
     }
 
     @Override

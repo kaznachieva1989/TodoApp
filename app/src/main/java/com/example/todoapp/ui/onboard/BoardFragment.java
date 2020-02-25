@@ -25,7 +25,6 @@ import com.google.android.material.tabs.TabLayout;
  * A simple {@link Fragment} subclass.
  */
 public class BoardFragment extends Fragment {
-    TextView skip;
     Button btnGetStarted;
     public ViewPager viewPager;
 
@@ -73,14 +72,5 @@ public class BoardFragment extends Fragment {
                 btnGetStarted.setVisibility(View.VISIBLE);
                 break;
         }
-        skip = view.findViewById(R.id.skip);
-        skip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Prefs.getInstance(getContext()).saveShown();
-                startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
-            }
-        });
     }
 }
