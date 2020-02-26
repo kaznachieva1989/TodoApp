@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.todoapp.ui.onboard.OnBoardActivity;
+import com.example.todoapp.ui.slideshow.OnBackPressedListener;
+import com.example.todoapp.ui.slideshow.SlideshowFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -16,6 +18,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.menu.MenuView;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -29,8 +32,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.EditText;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -38,6 +45,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
     private final int RC_WRITE_EXTERNAL = 101;
+
+    public OnBackPressedListener onBackPress;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -74,10 +83,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-        initFile();
+
+//        initFile();
+
     }
     @AfterPermissionGranted(RC_WRITE_EXTERNAL)
     private void initFile(){
+        EditText inputET;
+
+        inputET = findViewById(R.id.inputET);
         String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         if(EasyPermissions.hasPermissions(this, permission)) {
             File folder = new File(Environment.getExternalStorageDirectory(), "TodoApp");
@@ -93,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -132,4 +147,12 @@ public class MainActivity extends AppCompatActivity {
             String title = data.getStringExtra("title");
         }
     }
+    @Override
+    public void onBackPressed(){
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_slideshow);
+        if(!(fragment instanceof OnBackPressedListener)|| !((OnBackPressedListener)fragment).onBackPressed()){
+            super.onBackPressed();
+        }
+    }
+
 }
