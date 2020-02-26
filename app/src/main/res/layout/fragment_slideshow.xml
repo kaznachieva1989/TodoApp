@@ -23,4 +23,5 @@
         android:hint="Введите стих:"
         android:inputType="textCapSentences|textMultiLine"/>
 
+
 </LinearLayout>

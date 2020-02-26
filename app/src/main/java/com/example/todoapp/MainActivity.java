@@ -44,9 +44,8 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class MainActivity extends AppCompatActivity {
-    private final int RC_WRITE_EXTERNAL = 101;
 
-    public OnBackPressedListener onBackPress;
+    private final int RC_WRITE_EXTERNAL = 101;
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -60,8 +59,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-
         setContentView(R.layout.activity_main);
+
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -84,14 +84,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-//        initFile();
+      // initFile();
 
     }
     @AfterPermissionGranted(RC_WRITE_EXTERNAL)
     private void initFile(){
-        EditText inputET;
-
-        inputET = findViewById(R.id.inputET);
         String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
         if(EasyPermissions.hasPermissions(this, permission)) {
             File folder = new File(Environment.getExternalStorageDirectory(), "TodoApp");
@@ -127,6 +124,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, OnBoardActivity.class));
+            finish();
+        }
+        if (id == R.id.action_settings2){
+            startActivity(new Intent(this, SizeActivity.class));
             finish();
         }
 
