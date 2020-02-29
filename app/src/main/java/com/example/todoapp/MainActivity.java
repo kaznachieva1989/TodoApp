@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         if (id == R.id.action_settings2) {
-            startActivityForResult(new Intent(this, SizeActivity.class), 102);
+            startActivityForResult(new Intent(this, SizeActivity.class), SlideshowFragment.REQUEST_CODE_11);
         }
 
         return super.onOptionsItemSelected(item);
@@ -159,5 +159,4 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 }

@@ -9,33 +9,30 @@
     tools:context=".SizeActivity">
 
     <RadioGroup
-        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup1">
 
         <RadioButton
-            android:id="@+id/size_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/size_14"
+            android:checked="false"
+            android:onClick="onRadioClick"
             android:text="14sp" />
-
         <RadioButton
             android:id="@+id/size_22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioClick"
             android:text="22sp" />
-
         <RadioButton
             android:id="@+id/size_28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="onRadioClick"
             android:text="28sp" />
 
     </RadioGroup>
 
-    <EditText
-        android:id="@+id/ed"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:hint="ooooooo" />
 </LinearLayout>

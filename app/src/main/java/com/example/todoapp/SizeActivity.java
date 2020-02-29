@@ -14,46 +14,58 @@ import android.widget.TextView;
 
 import com.example.todoapp.ui.slideshow.SlideshowFragment;
 
-public class SizeActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
-    SlideshowFragment slideshowFragment;
+public class SizeActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton size_14, size_22, size_28;
-    EditText ed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_size);
 
-        slideshowFragment = new SlideshowFragment();
         radioGroup = findViewById(R.id.radioGroup1);
         size_14 = findViewById(R.id.size_14);
         size_22 = findViewById(R.id.size_22);
         size_28 = findViewById(R.id.size_28);
-        radioGroup.setOnCheckedChangeListener(this);
-        ed = findViewById(R.id.ed);
+        // radioGroup.setOnCheckedChangeListener(this);
     }
+//
+//
+//    @Override
+//    public void onCheckedChanged(RadioGroup group, int checkedId) {
+//        Intent intent = new Intent();
+//        if (size_14.isChecked()) {
+//            intent.putExtra("stih", 14);
+//        }
+//        if (size_22.isChecked()) {
+//            intent.putExtra("stih", 22);
+//        }
+//        if (size_28.isChecked()) {
+//            intent.putExtra("stih", 28);
+//        }
+//        setResult(RESULT_OK, intent);
+//        finish();
+//    }
 
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, int checkedId) {
+    public void onRadioClick(View view) {
         Intent intent = new Intent();
-        if (size_14.isChecked()) {
-            ed.setTextSize(14);
-            intent.putExtra("stih", ed.getText().toString());
-        }
-        if (size_22.isChecked()) {
-            ed.setTextSize(22);
-            intent.putExtra("stih", ed.getText().toString());
-        }
-        if (size_28.isChecked()) {
-            ed.setTextSize(28);
-            intent.putExtra("stih", ed.getText().toString());
+
+        switch (view.getId()) {
+            case R.id.size_14:
+                intent.putExtra(SlideshowFragment.EXTRA_KEY_TEST, 14);
+                break;
+            case R.id.size_22:
+                intent.putExtra(SlideshowFragment.EXTRA_KEY_TEST, 22);
+                break;
+            case R.id.size_28:
+                intent.putExtra(SlideshowFragment.EXTRA_KEY_TEST, 28);
+                break;
+            default:
+                break;
         }
         setResult(RESULT_OK, intent);
         finish();
     }
-
 //    @Override
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -61,5 +73,7 @@ public class SizeActivity extends AppCompatActivity implements RadioGroup.OnChec
 //            fragment.onActivityResult(requestCode, resultCode, data);
 //        }
 //    }
+
 }
+
 

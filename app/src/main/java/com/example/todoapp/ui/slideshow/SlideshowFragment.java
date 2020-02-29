@@ -1,14 +1,11 @@
 package com.example.todoapp.ui.slideshow;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.todoapp.Prefs;
 import com.example.todoapp.R;
-import com.example.todoapp.SizeActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,9 +25,12 @@ import java.io.IOException;
 import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
 
 public class SlideshowFragment extends Fragment implements OnBackPressedListener {
+
+    public static final String EXTRA_KEY_TEST = "stih";
+    public static final int REQUEST_CODE_11 = 11;
     EditText inputET;
     File file;
-
+    Long size;
 
     private SlideshowViewModel slideshowViewModel;
     private Intent intent;
@@ -56,14 +55,17 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         inputET = view.findViewById(R.id.inputET);
+
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 102 && resultCode == RESULT_OK) {
-            String edita = data.getStringExtra("stih");
-            inputET.setText(edita);
+        if (requestCode == REQUEST_CODE_11 && resultCode == RESULT_OK) {
+            size = data.getExtras().getLong(EXTRA_KEY_TEST);
+            inputET.setTextSize(size);
+            inputET.notify();
         }
     }
 
