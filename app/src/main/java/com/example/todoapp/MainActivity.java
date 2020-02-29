@@ -84,13 +84,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-      // initFile();
+        // initFile();
 
     }
+
     @AfterPermissionGranted(RC_WRITE_EXTERNAL)
-    private void initFile(){
+    private void initFile() {
         String permission = Manifest.permission.WRITE_EXTERNAL_STORAGE;
-        if(EasyPermissions.hasPermissions(this, permission)) {
+        if (EasyPermissions.hasPermissions(this, permission)) {
             File folder = new File(Environment.getExternalStorageDirectory(), "TodoApp");
             folder.mkdirs();
             File file = new File(folder, "note.txt");
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode,permissions, grantResults, this);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
     @Override
@@ -126,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, OnBoardActivity.class));
             finish();
         }
-        if (id == R.id.action_settings2){
-            startActivity(new Intent(this, SizeActivity.class));
-            finish();
+        if (id == R.id.action_settings2) {
+            startActivityForResult(new Intent(this, SizeActivity.class), 102);
         }
 
         return super.onOptionsItemSelected(item);
@@ -144,14 +144,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
         if (requestCode == 100 && resultCode == RESULT_OK) {
             String title = data.getStringExtra("title");
         }
     }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.nav_slideshow);
-        if(!(fragment instanceof OnBackPressedListener)|| !((OnBackPressedListener)fragment).onBackPressed()){
+        if (!(fragment instanceof OnBackPressedListener) || !((OnBackPressedListener) fragment).onBackPressed()) {
             super.onBackPressed();
         }
     }
