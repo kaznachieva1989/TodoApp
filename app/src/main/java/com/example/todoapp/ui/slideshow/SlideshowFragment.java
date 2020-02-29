@@ -56,7 +56,6 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
         super.onViewCreated(view, savedInstanceState);
         inputET = view.findViewById(R.id.inputET);
 
-
     }
 
     @Override
@@ -65,7 +64,6 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
         if (requestCode == REQUEST_CODE_11 && resultCode == RESULT_OK) {
             size = data.getExtras().getLong(EXTRA_KEY_TEST);
             inputET.setTextSize(size);
-            inputET.notify();
         }
     }
 

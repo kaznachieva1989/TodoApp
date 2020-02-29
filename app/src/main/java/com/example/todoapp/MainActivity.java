@@ -43,6 +43,9 @@ import java.io.IOException;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
+import static com.example.todoapp.ui.slideshow.SlideshowFragment.REQUEST_CODE_11;
+
 public class MainActivity extends AppCompatActivity {
 
     private final int RC_WRITE_EXTERNAL = 101;
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         if (id == R.id.action_settings2) {
-            startActivityForResult(new Intent(this, SizeActivity.class), SlideshowFragment.REQUEST_CODE_11);
+            startActivityForResult(new Intent(this, SizeActivity.class), REQUEST_CODE_11);
         }
 
         return super.onOptionsItemSelected(item);
