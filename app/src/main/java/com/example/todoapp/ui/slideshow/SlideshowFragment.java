@@ -1,5 +1,6 @@
 package com.example.todoapp.ui.slideshow;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,7 +31,8 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     public static final int REQUEST_CODE_11 = 11;
     EditText inputET;
     File file;
-    Long size;
+    int size;
+
 
     private SlideshowViewModel slideshowViewModel;
     private Intent intent;
@@ -38,17 +40,8 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+        return inflater.inflate(R.layout.fragment_slideshow, container, false);
+
     }
 
     @Override
@@ -61,12 +54,11 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_11 && resultCode == RESULT_OK) {
-            size = data.getExtras().getLong(EXTRA_KEY_TEST);
+        if (requestCode == REQUEST_CODE_11 && resultCode == Activity.RESULT_OK) {
+            size = data.getExtras().getInt(EXTRA_KEY_TEST);
             inputET.setTextSize(size);
         }
     }
-
 
     private void saveToTxtFile() {
         Prefs.getInstance(getContext()).saveShown();

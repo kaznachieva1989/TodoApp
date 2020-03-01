@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.R;
@@ -15,11 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
-
+    private OnNoteListener listenerClick;
     private List<Work> list;
 
-    public WorkAdapter(List<Work> list) {
+    public WorkAdapter(List<Work> list, OnNoteListener onNoteListener) {
         this.list = list;
+        this.listenerClick = onNoteListener;
     }
 
 
@@ -28,7 +31,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.list_work, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
+        ViewHolder viewHolder = new ViewHolder(view, listenerClick);
         return viewHolder;
     }
 
@@ -42,16 +45,19 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         return list.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        OnNoteListener onNoteListener;
         private TextView textTitle;
         private TextView textDesc;
 
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textDesc = itemView.findViewById(R.id.textDesc);
+            this.onNoteListener = onNoteListener;
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
 
         }
 
@@ -59,5 +65,22 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
             textTitle.setText(work.getTitle());
             textDesc.setText(work.getDesc());
         }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            onNoteListener.onItemLongClick(getAdapterPosition());
+            return true;
+        }
+    }
+
+    public interface OnNoteListener {
+        void onNoteClick(int position);
+
+        void onItemLongClick(int position);
     }
 }

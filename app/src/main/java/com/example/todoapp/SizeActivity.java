@@ -27,25 +27,7 @@ public class SizeActivity extends AppCompatActivity {
         size_14 = findViewById(R.id.size_14);
         size_22 = findViewById(R.id.size_22);
         size_28 = findViewById(R.id.size_28);
-        // radioGroup.setOnCheckedChangeListener(this);
     }
-//
-//
-//    @Override
-//    public void onCheckedChanged(RadioGroup group, int checkedId) {
-//        Intent intent = new Intent();
-//        if (size_14.isChecked()) {
-//            intent.putExtra("stih", 14);
-//        }
-//        if (size_22.isChecked()) {
-//            intent.putExtra("stih", 22);
-//        }
-//        if (size_28.isChecked()) {
-//            intent.putExtra("stih", 28);
-//        }
-//        setResult(RESULT_OK, intent);
-//        finish();
-//    }
 
     public void onRadioClick(View view) {
         Intent intent = new Intent();
@@ -66,14 +48,6 @@ public class SizeActivity extends AppCompatActivity {
         setResult(RESULT_OK, intent);
         finish();
     }
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-//            fragment.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
-
 }
 
 
