@@ -13,17 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.todoapp.Prefs;
 import com.example.todoapp.R;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static androidx.core.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;
+import java.io.InputStreamReader;
 
 public class SlideshowFragment extends Fragment implements OnBackPressedListener {
 
@@ -32,10 +31,7 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     EditText inputET;
     File file;
     int size;
-
-
-    private SlideshowViewModel slideshowViewModel;
-    private Intent intent;
+    TextView proverka;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -48,6 +44,7 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         inputET = view.findViewById(R.id.inputET);
+        proverka = view.findViewById(R.id.proverka);
 
     }
 
@@ -57,6 +54,7 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
         if (requestCode == REQUEST_CODE_11 && resultCode == Activity.RESULT_OK) {
             size = data.getExtras().getInt(EXTRA_KEY_TEST);
             inputET.setTextSize(size);
+            readTxtFile();
         }
     }
 
@@ -74,15 +72,43 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
         }
     }
 
+    private void readTxtFile() {
+        StringBuilder sb = new StringBuilder();
+        File folder = new File(Environment.getExternalStorageDirectory(), "TodoApp");
+        folder.mkdirs();
+        file = new File(folder, "note.txt");
+
+        try {
+            //   File textFile = new File(Environment.getExternalStorageDirectory(), "note.txt");
+            FileInputStream fis = new FileInputStream(file);
+
+            if (fis != null) {
+                InputStreamReader isr = new InputStreamReader(fis);
+                BufferedReader buf = new BufferedReader(isr);
+
+                String line = null;
+                while ((line = buf.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                fis.close();
+            }
+            proverka.setText(sb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onPause() {
         super.onPause();
         saveToTxtFile();
+        readTxtFile();
     }
 
     @Override
     public boolean onBackPressed() {
         saveToTxtFile();
+        readTxtFile();
         return false;
     }
 

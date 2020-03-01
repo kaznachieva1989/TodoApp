@@ -46,6 +46,7 @@ public class NotesFragment extends Fragment {
         File file = new File(folder, "note.txt");
         try {
             FileUtils.writeStringToFile(file, text, "utf-8");
+
         } catch (IOException e) {
             e.printStackTrace();
         }

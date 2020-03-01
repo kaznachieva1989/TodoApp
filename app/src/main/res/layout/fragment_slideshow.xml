@@ -24,4 +24,9 @@
         android:hint="Введите стих:"
         android:inputType="textCapSentences|textMultiLine" />
 
+    <TextView
+        android:id="@+id/proverka"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
