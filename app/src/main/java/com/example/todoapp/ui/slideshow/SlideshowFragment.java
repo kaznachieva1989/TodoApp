@@ -31,7 +31,6 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     EditText inputET;
     File file;
     int size;
-    TextView proverka;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,8 +43,7 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         inputET = view.findViewById(R.id.inputET);
-        proverka = view.findViewById(R.id.proverka);
-
+        readTxtFile();
     }
 
     @Override
@@ -54,7 +52,6 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
         if (requestCode == REQUEST_CODE_11 && resultCode == Activity.RESULT_OK) {
             size = data.getExtras().getInt(EXTRA_KEY_TEST);
             inputET.setTextSize(size);
-            readTxtFile();
         }
     }
 
@@ -92,7 +89,7 @@ public class SlideshowFragment extends Fragment implements OnBackPressedListener
                 }
                 fis.close();
             }
-            proverka.setText(sb);
+            inputET.setText(sb);
         } catch (Exception e) {
             e.printStackTrace();
         }
