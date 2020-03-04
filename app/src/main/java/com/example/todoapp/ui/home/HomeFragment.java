@@ -9,11 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.todoapp.AnimationActivity;
 import com.example.todoapp.App;
 import com.example.todoapp.FormActivity;
 import com.example.todoapp.MainActivity;
@@ -38,6 +42,7 @@ public class HomeFragment extends Fragment implements WorkAdapter.OnNoteListener
     private WorkAdapter adapter;
     private List<Work> list;
     int position;
+    Button button;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -60,6 +65,19 @@ public class HomeFragment extends Fragment implements WorkAdapter.OnNoteListener
                 list.clear();
                 list.addAll(works);
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        button = view.findViewById(R.id.btn_animation);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AnimationActivity.class);
+                String transitionName = getString(R.string.transition_string);
+
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) getContext(),
+                        button, transitionName);
+                ActivityCompat.startActivity(getContext(),intent, options.toBundle());
             }
         });
     }

@@ -23,7 +23,8 @@ public class Prefs {
         return preferences.getBoolean("isShown", false);
     }
 
-    public void saveShown(){
+    public void
+    saveShown(){
         preferences.edit().putBoolean("isShown", true).apply();
     }
 }

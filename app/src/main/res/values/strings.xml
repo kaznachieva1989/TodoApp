@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TodoApp</string>
     <string name="about_title">SizeActivity</string>
+    <string name="profile_activity">ProfileActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Kaznachieva Nurzhamal</string>
@@ -8,6 +9,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Очистить</string>
     <string name="action_settings2">Размер текста</string>
+
+    <string name="transition_string">hello</string>
 
     <string name="menu_home">Задачи</string>
     <string name="menu_gallery">Имена</string>

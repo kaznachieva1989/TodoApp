@@ -14,9 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".AnimationActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/profile_activity"></activity>
         <activity
             android:name=".SizeActivity"
-            android:label="@string/about_title"/>
+            android:label="@string/about_title" />
         <activity android:name=".ui.onboard.OnBoardActivity" />
         <activity android:name=".FormActivity" />
         <activity
