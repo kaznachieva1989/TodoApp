@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
 
@@ -21,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -33,11 +39,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 47 && resultCode == RESULT_OK && data != null){
-            Prefs.getInstance(getApplicationContext()).saveShown();
             Uri imageData = data.getData();
 
             imageView.setImageURI(imageData);
-
         }
     }
 }
