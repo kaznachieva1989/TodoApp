@@ -14,10 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AnimationActivity"></activity>
+        <activity android:name=".PhoneActivity"></activity>
+        <activity android:name=".AnimationActivity" />
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/profile_activity"></activity>
+            android:label="@string/profile_activity" />
         <activity
             android:name=".SizeActivity"
             android:label="@string/about_title" />

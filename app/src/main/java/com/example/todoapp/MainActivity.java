@@ -1,7 +1,9 @@
 package com.example.todoapp;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -34,6 +37,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,7 +66,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-
+//        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+//            startActivity(new Intent(this, PhoneActivity.class));
+//            finish();
+//            return;
+//        }
         setContentView(R.layout.activity_main);
 
 
@@ -140,6 +148,28 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings2) {
             startActivityForResult(new Intent(this, SizeActivity.class), REQUEST_CODE_11);
         }
+        if(id == R.id.action_settings3)
+        {
+            AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+            alert.setTitle("Android");
+            alert.setMessage("Вы действительно хотите выйти?");
+            alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    FirebaseAuth.getInstance().signOut();
+                    startActivity(new Intent(getApplicationContext(), OnBoardActivity.class));
+                    finish();
+                    Toast.makeText(MainActivity.this, "Good", Toast.LENGTH_SHORT).show();
+                }
+            });
+            alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Toast.makeText(MainActivity.this, "Bad", Toast.LENGTH_SHORT).show();
+                }
+            });
+            alert.show();
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -170,5 +200,4 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
 }

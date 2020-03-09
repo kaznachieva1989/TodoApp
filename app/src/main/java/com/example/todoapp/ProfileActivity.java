@@ -4,18 +4,28 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
+    Uri imageData;
+    private View context;
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         imageView = findViewById(R.id.image_profile);
+        preferences = getSharedPreferences("ava", MODE_PRIVATE);
+        String ava = preferences.getString("ava", "");
+        Glide.with(this).load(ava).into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,10 +51,18 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 47 && resultCode == RESULT_OK && data != null){
-            Uri imageData = data.getData();
+        if (requestCode == 47 && resultCode == RESULT_OK && data != null) {
 
-            imageView.setImageURI(imageData);
+            try {
+                imageData = data.getData();
+                InputStream imageStrim = getContentResolver().openInputStream(imageData);
+                Bitmap selectImage = BitmapFactory.decodeStream(imageStrim);
+                preferences.edit().putString("ava", String.valueOf(imageData)).apply();
+                Glide.with(this).load(imageData).into(imageView);
+                //imageView.setImageURI(selectImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

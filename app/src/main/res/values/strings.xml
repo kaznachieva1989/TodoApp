@@ -9,6 +9,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Очистить</string>
     <string name="action_settings2">Размер текста</string>
+    <string name="action_settings3">Sign out</string>
 
     <string name="transition_string">hello</string>
 
