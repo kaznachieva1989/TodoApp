@@ -9,7 +9,7 @@ public class Prefs {
 
     private SharedPreferences preferences;
 
-    public Prefs(Context context){
+    public Prefs(Context context) {
         instance = this;
         preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
     }
@@ -19,12 +19,12 @@ public class Prefs {
         return instance;
     }
 
-    public boolean isShown(){
+    public boolean isShown() {
         return preferences.getBoolean("isShown", false);
     }
 
     public void
-    saveShown(){
+    saveShown() {
         preferences.edit().putBoolean("isShown", true).apply();
     }
 }

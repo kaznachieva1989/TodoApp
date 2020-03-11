@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
             finish();
             return;
         }
-//        if(FirebaseAuth.getInstance().getCurrentUser() == null){
-//            startActivity(new Intent(this, PhoneActivity.class));
-//            finish();
-//            return;
-//        }
+        if(FirebaseAuth.getInstance().getCurrentUser() == null){
+            startActivity(new Intent(this, PhoneActivity.class));
+            finish();
+            return;
+        }
         setContentView(R.layout.activity_main);
 
 

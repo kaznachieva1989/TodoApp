@@ -54,7 +54,7 @@ public class PhoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!editPhone.getText().toString().trim().isEmpty()) {
-                    sendVerificationCode();
+                    resendVerificationCode(phone, mResendToken);
                     startTimer();
                 }
             }
@@ -122,12 +122,10 @@ public class PhoneActivity extends AppCompatActivity {
     PhoneAuthProvider.OnVerificationStateChangedCallbacks callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
         @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            String code = phoneAuthCredential.getSmsCode();
+        public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
+            String code = credential.getSmsCode();
             if (code != null) {
-                editCode.setText(code);
-                //verifying the code
-                verifySignInCode();
+                signInWithPhoneAuthCredential(credential);
             }
         }
 

@@ -24,7 +24,6 @@ import java.util.Date;
 public class ProfileActivity extends AppCompatActivity {
     ImageView imageView;
     Uri imageData;
-    private View context;
     SharedPreferences preferences;
 
     @Override
@@ -39,7 +38,6 @@ public class ProfileActivity extends AppCompatActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -52,17 +50,9 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 47 && resultCode == RESULT_OK && data != null) {
-
-            try {
-                imageData = data.getData();
-                InputStream imageStrim = getContentResolver().openInputStream(imageData);
-                Bitmap selectImage = BitmapFactory.decodeStream(imageStrim);
-                preferences.edit().putString("ava", String.valueOf(imageData)).apply();
-                Glide.with(this).load(imageData).into(imageView);
-                //imageView.setImageURI(selectImage);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            imageData = data.getData();
+            preferences.edit().putString("ava", String.valueOf(imageData)).apply();
+            Glide.with(this).load(imageData).into(imageView);
         }
     }
 }
