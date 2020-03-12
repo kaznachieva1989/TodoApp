@@ -12,17 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todoapp.R;
 import com.example.todoapp.com.example.todoapp.models.Work;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     private OnNoteListener listenerClick;
-    private List<Work> list;
+    List<Work> list = new ArrayList<>();
 
     public WorkAdapter(List<Work> list, OnNoteListener onNoteListener) {
         this.list = list;
         this.listenerClick = onNoteListener;
+    }
+
+    public WorkAdapter(FirestoreRecyclerOptions<Work> options) {
+
     }
 
 

@@ -8,10 +8,11 @@ import java.io.Serializable;
 @Entity
 public class Work implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
     private String title;
     private String desc;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
 
     public Work(String title, String desc) {
         this.id = id;
