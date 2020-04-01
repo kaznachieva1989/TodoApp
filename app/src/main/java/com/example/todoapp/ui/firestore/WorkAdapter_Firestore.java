@@ -3,6 +3,7 @@ package com.example.todoapp.ui.firestore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,9 +14,13 @@ import com.example.todoapp.com.example.todoapp.models.Work;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class WorkAdapter_Firestore extends FirestoreRecyclerAdapter<Work, WorkAdapter_Firestore.WorkHolder> {
     OnWorkListener listener;
+
 
     public WorkAdapter_Firestore(@NonNull FirestoreRecyclerOptions<Work> options) {
         super(options);
@@ -26,6 +31,7 @@ public class WorkAdapter_Firestore extends FirestoreRecyclerAdapter<Work, WorkAd
     protected void onBindViewHolder(@NonNull WorkHolder holder, int position, @NonNull Work model) {
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getDesc());
+        Picasso.get().load(model.getImageUrl()).into(holder.imageView);
     }
 
     @NonNull
@@ -40,12 +46,14 @@ public class WorkAdapter_Firestore extends FirestoreRecyclerAdapter<Work, WorkAd
     class WorkHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         TextView title;
         TextView description;
+        ImageView imageView;
 
 
         public WorkHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title_firestore);
             description = itemView.findViewById(R.id.description_firestore);
+            imageView = itemView.findViewById(R.id.imageView_firestore);
 
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffdde1"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="#ffdde1"
     tools:context=".FormActivity">
 
     <EditText
@@ -19,20 +19,43 @@
 
     <EditText
         android:id="@+id/editDesc"
+        style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Description"
-       style="@style/EditTextStyle"
-        android:background="@drawable/bg_edit"/>
+        android:background="@drawable/bg_edit"
+        android:hint="Description" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:textColor="#fff"
         android:background="@drawable/bg_button"
-        android:onClick="onClick">
+        android:onClick="onClick"
+        android:text="Save"
+        android:textColor="#fff"></Button>
 
-    </Button>
+
+    <ImageView
+        android:id="@+id/imageViewAdd"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@drawable/ic_image" />
+
+<!--    <TextView-->
+<!--        android:id="@+id/textProgress"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:gravity="center"-->
+<!--        android:text="0.0 %"-->
+<!--        android:textSize="25dp" />-->
+<!--    <ProgressBar-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/progressBar"-->
+<!--        />-->
+
+
 
 </LinearLayout>

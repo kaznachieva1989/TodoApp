@@ -10,10 +10,17 @@ public class Work implements Serializable {
 
     private String title;
     private String desc;
+    private String imageUrl;
     @PrimaryKey(autoGenerate = true)
     private long id;
 
 
+    public Work(String title, String desc, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.desc = desc;
+        this.imageUrl = imageUrl;
+    }
     public Work(String title, String desc) {
         this.id = id;
         this.title = title;
@@ -21,6 +28,14 @@ public class Work implements Serializable {
     }
 
     public Work() {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public long getId() {
