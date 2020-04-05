@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.todoapp.R;
 import com.example.todoapp.com.example.todoapp.models.Work;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -32,6 +33,7 @@ public class WorkAdapter_Firestore extends FirestoreRecyclerAdapter<Work, WorkAd
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getDesc());
         Picasso.get().load(model.getImageUrl()).into(holder.imageView);
+
     }
 
     @NonNull

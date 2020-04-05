@@ -3,6 +3,7 @@ package com.example.todoapp.ui.home;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,9 +11,11 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.todoapp.R;
 import com.example.todoapp.com.example.todoapp.models.Work;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +27,6 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     public WorkAdapter(List<Work> list, OnNoteListener onNoteListener) {
         this.list = list;
         this.listenerClick = onNoteListener;
-    }
-
-    public WorkAdapter(FirestoreRecyclerOptions<Work> options) {
-
     }
 
 
@@ -54,12 +53,15 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         OnNoteListener onNoteListener;
         private TextView textTitle;
         private TextView textDesc;
+        private ImageView imageView;
+
 
 
         public ViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             textTitle = itemView.findViewById(R.id.textTitle);
             textDesc = itemView.findViewById(R.id.textDesc);
+            imageView = itemView.findViewById(R.id.imageView_data);
             this.onNoteListener = onNoteListener;
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
@@ -69,6 +71,7 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         public void bind(Work work) {
             textTitle.setText(work.getTitle());
             textDesc.setText(work.getDesc());
+            Glide.with(itemView.getContext()).load(work.getImageUrl()).into(imageView);
         }
 
         @Override

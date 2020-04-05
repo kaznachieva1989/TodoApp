@@ -67,6 +67,7 @@ public class FirestoreFragment extends Fragment {
 
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query = firebaseFirestore.collection("works");
+
         FirestoreRecyclerOptions<Work> options = new FirestoreRecyclerOptions.Builder<Work>()
                 .setQuery(query,Work.class)
                 .build();
