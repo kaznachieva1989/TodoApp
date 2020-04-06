@@ -3,35 +3,22 @@ package com.example.todoapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.example.todoapp.com.example.todoapp.models.Work;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-
 
 public class FormActivity extends AppCompatActivity {
 
@@ -54,7 +41,7 @@ public class FormActivity extends AppCompatActivity {
         editDesc = findViewById(R.id.editDesc);
         imageViewAdd = findViewById(R.id.imageViewAdd);
         String uniqueId = UUID.randomUUID().toString();
-        storageReference = FirebaseStorage.getInstance().getReference().child("ImageFolder" + uniqueId);
+        storageReference = FirebaseStorage.getInstance().getReference().child("ImageFolder/" + uniqueId);
         db = FirebaseFirestore.getInstance();
 
         getIncomingIntent();
@@ -79,49 +66,31 @@ public class FormActivity extends AppCompatActivity {
         work.setImageUrl(String.valueOf(imageUri));
         App.getDatabase().workDao().insert(work);
         saveToFirestore(work);
-
-        Intent intent = new Intent();
-        intent.putExtra("title", title);
-        intent.putExtra("work", work);
-        setResult(RESULT_OK, intent);
-        finish();
     }
 
-    private void saveToFirestore(Work work) {
-//        FirebaseFirestore.getInstance().collection("works").add(work).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentReference> task) {
-//                if (task.isSuccessful()) {
-//                    Toast.makeText(FormActivity.this, "Great", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+    private void saveToFirestore(final Work work) {
+
         storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Map<String, Object> file = new HashMap();
-                        file.put("imageUrl", uri.toString());
-                        file.put("title", editTitle.getText().toString());
-                        file.put("desc", editDesc.getText().toString());
-                        db.collection("works").document().set(file).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        work.setImageUrl(uri.toString());
+                        db.collection("works").add(work).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-
+                            public void onSuccess(DocumentReference documentReference) {
+                                Intent intent = new Intent();
+                                intent.putExtra("title", work.getTitle());
+                                intent.putExtra("work", work);
+                                setResult(RESULT_OK, intent);
+                                finish();
                             }
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                     }
                 });
             }

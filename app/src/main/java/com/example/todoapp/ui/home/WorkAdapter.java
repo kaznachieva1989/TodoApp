@@ -1,5 +1,7 @@
 package com.example.todoapp.ui.home;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,8 +25,10 @@ import java.util.List;
 public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
     private OnNoteListener listenerClick;
     List<Work> list = new ArrayList<>();
+    Context context;
 
-    public WorkAdapter(List<Work> list, OnNoteListener onNoteListener) {
+    public WorkAdapter(Context context, List<Work> list, OnNoteListener onNoteListener) {
+        this.context = context;
         this.list = list;
         this.listenerClick = onNoteListener;
     }
@@ -71,7 +75,8 @@ public class WorkAdapter extends RecyclerView.Adapter<WorkAdapter.ViewHolder> {
         public void bind(Work work) {
             textTitle.setText(work.getTitle());
             textDesc.setText(work.getDesc());
-            Glide.with(itemView.getContext()).load(work.getImageUrl()).into(imageView);
+            Glide.with(context).load(work.getImageUrl()).into(imageView);
+            Log.d("ololo", "bind" + work.getImageUrl());
         }
 
         @Override

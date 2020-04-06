@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment implements WorkAdapter.OnNoteListener
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         list = new ArrayList<>();
-        adapter = new WorkAdapter(list, this);
+        adapter = new WorkAdapter(getContext(),list, this);
         recyclerView.setAdapter(adapter);
         App.getDatabase().workDao().getAll().observe(getViewLifecycleOwner(), new Observer<List<Work>>() {
             @Override
